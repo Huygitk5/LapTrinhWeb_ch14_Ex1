@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/ch12email">
+
+    <Resource name="jdbc/murach" auth="Container" 
+        driverClassName="org.postgresql.Driver" 
+        url="jdbc:postgresql://dpg-d4jvcpali9vc73ddndkg-a.singapore-postgres.render.com:5432/ch12_ex1_sqlgateway_db" 
+        username="ch12_ex1_sqlgateway_db_user" password="nPN6IiLfaIuEEPXUxnyDpWRMCMV8DUMF" 
+        maxActive="100" maxIdle="30" maxWait="10000" 
+        logAbandoned="true" removeAbandoned="true" 
+        removeAbandonedTimeout="60" type="javax.sql.DataSource" />
+</Context>

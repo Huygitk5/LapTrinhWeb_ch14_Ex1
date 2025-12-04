@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    /*background-color: #bce3da;*/
+
+    
+    /* 1. Đặt chiều cao body bằng 100% chiều cao màn hình */
+    min-height: 100vh; 
+    
+    /* 2. Bật chế độ Flexbox */
+    display: flex;
+    
+    /* 3. Xếp các phần tử theo chiều dọc (Cái khung nằm trên, footer nằm dưới) */
+    flex-direction: column;
+    
+    /* 4. Căn giữa theo chiều DỌC (Đây là cái bạn đang cần) */
+    justify-content: center;
+    
+    /* 5. Căn giữa theo chiều NGANG */
+    align-items: center;
+    
+    /* 6. Xóa margin mặc định của trình duyệt */
+    margin: 0; 
+}
+
+.survey-container {
+    width: auto; /* Đặt chiều rộng cố định cho khung */
+    margin: 1em;
+    background-color: white; /* Đặt màu nền trắng cho khung */
+    
+    border: 1px solid #ccc; /* Đây là đường viền (khung) */
+    
+    border-radius: 10px; /* Đây là bo góc */
+    
+    padding: 2em; /* Tạo khoảng đệm bên trong khung */
+    
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Thêm hiệu ứng đổ bóng cho đẹp (tùy chọn) */
+}
+
+.center {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+h1, h2{
+    color: teal;
+}
+label {
+    float: left;
+    width: 6em;
+    margin-bottom: 0.5em;
+}
+input[type="text"], input[type="email"] {
+    width: 15em;
+    margin-left: 0.5em;    
+    margin-bottom: 0.5em;
+}
+
+br {
+    clear: both;
+}
+
+/* Tạo viền cho bảng, thẻ tiêu đề (th) và thẻ dữ liệu (td) */
+table, th, td {
+    border: 1px solid black; /* Viền liền, màu đen, dày 1px */
+    border-collapse: collapse; /* Gộp viền đôi thành viền đơn cho đẹp */
+}
+
+/* Thêm khoảng cách cho dễ nhìn (giống hình mẫu) */
+th, td {
+    padding: 10px;
+}
+
+/* Căn phải cho giá tiền (class="right" bạn đã đặt trong HTML) */
+.right {
+    text-align: right;
+}
+
+table {
+    width: 80%;
+    margin: auto;
+}
