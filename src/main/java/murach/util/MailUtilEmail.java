@@ -15,22 +15,14 @@ public class MailUtilEmail {
 //        String smtpUsername = System.getenv("9d4a84001@smtp-brevo.com"); // Email login của Brevo/SendGrid
 //        String smtpPassword = System.getenv("xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-bp7mgP1HDcKEgijs"); // Key SMTP của Brevo/SendGrid
 
-        String smtpHost = "smtp.gmail.com";
-        String smtpPort = "587"; 
         String smtpUsername = "9d4a84001@smtp-brevo.com";
-        String smtpPassword = "xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-bp7mgP1HDcKEgijs";
-// Nếu chạy localhost (chưa có env), có thể fallback về giá trị mặc định để test (nhưng KHÔNG khuyến khích hardcode production)
-        if (smtpHost == null) {
-             // Fallback logic hoặc ném lỗi
-             System.out.println("Chưa cấu hình biến môi trường gửi mail!");
-             return; 
-        }
+        String smtpPassword = "xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-R28ZYcEU53BFYup6";
 
         // 1 - get a mail session
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.port", smtpPort);
+        props.put("mail.smtp.host", "smtp-relay.brevo.com");
+        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         
 //        props.put("mail.smtps.ssl.enable", "true");
@@ -49,7 +41,7 @@ public class MailUtilEmail {
         Message message = new MimeMessage(session);
         message.setSubject(subject);
         if (bodyIsHTML) {
-            message.setContent(body, "text/html; charset=utf-8");
+            message.setContent(body, "text/html");
         } else {
             message.setText(body);
         }
