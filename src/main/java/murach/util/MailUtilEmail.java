@@ -14,7 +14,7 @@ public class MailUtilEmail {
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
-        props.put("mail.smtps.port", 465);
+        props.put("mail.smtps.port", 587);
         props.put("mail.smtps.auth", "true");
         props.put("mail.smtps.quitwait", "false");
         Session session = Session.getDefaultInstance(props);
