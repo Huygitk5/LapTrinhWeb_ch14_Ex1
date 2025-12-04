@@ -15,7 +15,7 @@ public class MailUtilEmail {
 //        String smtpUsername = System.getenv("9d4a84001@smtp-brevo.com"); // Email login của Brevo/SendGrid
 //        String smtpPassword = System.getenv("xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-bp7mgP1HDcKEgijs"); // Key SMTP của Brevo/SendGrid
 
-        String smtpHost = "smtp-relay.brevo.com";
+        String smtpHost = "smtp.gmail.com";
         String smtpPort = "587"; 
         String smtpUsername = "9d4a84001@smtp-brevo.com";
         String smtpPassword = "xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-bp7mgP1HDcKEgijs";
