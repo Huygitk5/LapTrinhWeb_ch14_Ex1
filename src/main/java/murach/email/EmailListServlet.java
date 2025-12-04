@@ -50,7 +50,7 @@ public class EmailListServlet extends HttpServlet {
             else {
                 message = "";
                 String to = email;
-                String from = "email_list@murach.com";
+                String from = "quochuydoan2005@gmail.com";
                 String subject = "Welcome to our email list";
                 String body = "Dear " + firstName + ",\n\n"
                    + "Thanks for joining our email list. "
@@ -63,6 +63,8 @@ public class EmailListServlet extends HttpServlet {
                 boolean isBodyHTML = false;
                 try {
                     MailUtilEmail.sendMail(to, from, subject, body, isBodyHTML);
+                    UserDB.insert(user);
+                    url = "/thanks.jsp";
                 } catch (MessagingException e) {
                     String errorMessage
                         = "ERROR: Unable to send email. "
@@ -79,9 +81,8 @@ public class EmailListServlet extends HttpServlet {
                         + "FROM: " + from + "\n"
                         + "SUBJECT: " + subject + "\n\n"
                         + body + "\n\n");
+                    url = "/index.jsp";
                 }
-                url = "/thanks.jsp";
-                UserDB.insert(user);
             }
             request.setAttribute("user", user);
             request.setAttribute("message", message);
