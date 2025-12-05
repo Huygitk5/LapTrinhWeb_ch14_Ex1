@@ -51,7 +51,7 @@ public class MailUtilEmail {
         try (Transport transport = session.getTransport("smtp")) {      
             
             // Lấy key từ biến môi trường
-            String smtpKey = "xsmtpsib-d7a8b3fb130922b3782ea3da764b5ae69c8ceec694f7785c710b422c57d8b534-UaKAOMwyabxKltCI";
+            String smtpKey = System.getenv("BREVO_SMTP_KEY");
 
             // Nếu không tìm thấy biến môi trường (khi chạy local mà chưa cài đặt)
             if (smtpKey == null || smtpKey.isEmpty()) {
