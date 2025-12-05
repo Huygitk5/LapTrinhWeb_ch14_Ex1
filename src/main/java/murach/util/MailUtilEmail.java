@@ -1,7 +1,7 @@
 package murach.util;
 
 import java.util.Properties;
-import jakarta.mail.*;
+import jakarta.mail.*; 
 import jakarta.mail.internet.*;
 
 public class MailUtilEmail {
@@ -9,53 +9,59 @@ public class MailUtilEmail {
     public static void sendMail(String to, String from,
             String subject, String body, boolean bodyIsHTML)
             throws MessagingException {
-        
-//        String smtpHost = System.getenv("smtp-relay.brevo.com");       // v.d: smtp-relay.brevo.com
-//        String smtpPort = System.getenv("587");       // v.d: 587 hoặc 2525
-//        String smtpUsername = System.getenv("9d4a84001@smtp-brevo.com"); // Email login của Brevo/SendGrid
-//        String smtpPassword = System.getenv("xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-bp7mgP1HDcKEgijs"); // Key SMTP của Brevo/SendGrid
 
-        String smtpUsername = "9d4a84001@smtp-brevo.com";
-        String smtpPassword = "xsmtpsib-a64876cda3188efa0b3b652d7f10a8a52a1cbe92c404321ca634dc45f17aab64-R28ZYcEU53BFYup6";
-
-        // 1 - get a mail session
+        // 1. Cấu hình SMTP cho Brevo (Sửa lại cho đúng chuẩn STARTTLS) [cite: 333]
         Properties props = new Properties();
-        props.put("mail.transport.protocol", "smtp");
+        
+        // QUAN TRỌNG: Dùng 'smtp' thay vì 'smtps' cho cổng 2525/587
+        props.put("mail.transport.protocol", "smtp"); 
+        
         props.put("mail.smtp.host", "smtp-relay.brevo.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.port", "587"); // Nếu 587 bị chặn, đổi thành 2525
         props.put("mail.smtp.auth", "true");
         
-//        props.put("mail.smtps.ssl.enable", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        // BẮT BUỘC: Phải bật STARTTLS cho cổng 587/2525
+        props.put("mail.smtp.starttls.enable", "true"); 
+        props.put("mail.smtp.starttls.required", "true");
         
-//        Session session = Session.getDefaultInstance(props);
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(smtpUsername, smtpPassword);
-            }
-        });
-        session.setDebug(true);
+        // Trust chứng chỉ để tránh lỗi xác thực trên môi trường Cloud
+        props.put("mail.smtp.ssl.trust", "smtp-relay.brevo.com");
         
-        // 2 - create a message
+        Session session = Session.getInstance(props, null);
+        session.setDebug(true); // Xem log lỗi [cite: 340]
+
+        // 2. Tạo nội dung email [cite: 346]
         Message message = new MimeMessage(session);
         message.setSubject(subject);
+        
         if (bodyIsHTML) {
-            message.setContent(body, "text/html");
+            message.setContent(body, "text/html; charset=UTF-8");
         } else {
             message.setText(body);
         }
-        // 3 - address the message
+
+        // 3. Thiết lập người gửi và nhận [cite: 357]
         Address fromAddress = new InternetAddress(from);
         Address toAddress = new InternetAddress(to);
+        
         message.setFrom(fromAddress);
         message.setRecipient(Message.RecipientType.TO, toAddress);
 
-        // 4 - send the message
-//        Transport transport = session.getTransport();
-//        transport.connect("quochuydoan2005@gmail.com", "hwia ielt wjxj obve");
-//        transport.sendMessage(message, message.getAllRecipients());
-//        transport.close();
-        Transport.send(message);
+        // 4. Gửi mail
+        try (Transport transport = session.getTransport("smtp")) {      
+            
+            // Lấy key từ biến môi trường
+            String smtpKey = "xsmtpsib-d7a8b3fb130922b3782ea3da764b5ae69c8ceec694f7785c710b422c57d8b534-UaKAOMwyabxKltCI";
+
+            // Nếu không tìm thấy biến môi trường (khi chạy local mà chưa cài đặt)
+            if (smtpKey == null || smtpKey.isEmpty()) {
+                // TUYỆT ĐỐI KHÔNG ĐIỀN KEY THẬT VÀO ĐÂY KHI PUSH GITHUB
+                // Hãy ném ra lỗi để mình biết mà cấu hình lại máy tính
+                throw new MessagingException("LỖI: Chưa cấu hình biến môi trường BREVO_SMTP_KEY trên máy tính/server!");
+            }
+
+            transport.connect("smtp-relay.brevo.com", "9d52bf001@smtp-brevo.com", smtpKey);
+            transport.sendMessage(message, message.getAllRecipients());
+        }
     }
 }
