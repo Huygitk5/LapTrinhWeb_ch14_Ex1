@@ -17,7 +17,7 @@ public class MailUtilEmail {
         props.put("mail.transport.protocol", "smtp"); 
         
         props.put("mail.smtp.host", "smtp-relay.brevo.com");
-        props.put("mail.smtp.port", "587"); // Nếu 587 bị chặn, đổi thành 2525
+        props.put("mail.smtp.port", "2525"); // Nếu 587 bị chặn, đổi thành 2525
         props.put("mail.smtp.auth", "true");
         
         // BẮT BUỘC: Phải bật STARTTLS cho cổng 587/2525
