@@ -54,7 +54,7 @@ public class EmailListServlet extends HttpServlet {
                 
                 // 4. GỬI EMAIL (Logic gửi mail)
                 String to = email;
-                String from = "daonguyennhatanh0910@gmail.com"; 
+                String from = "quochuydoan2005@gmail.com"; 
                 String subject = "Welcome to our email list";
                 String body = "Dear " + firstName + ",\n\n"
                         + "Thanks for joining our email list. "
