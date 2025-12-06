@@ -60,7 +60,7 @@ public class MailUtilEmail {
                 throw new MessagingException("LỖI: Chưa cấu hình biến môi trường BREVO_SMTP_KEY trên máy tính/server!");
             }
 
-            transport.connect("smtp-relay.brevo.com", "9d52bf001@smtp-brevo.com", smtpKey);
+            transport.connect("smtp-relay.brevo.com", "9d4ab6001@smtp-brevo.com", smtpKey);
             transport.sendMessage(message, message.getAllRecipients());
         }
     }

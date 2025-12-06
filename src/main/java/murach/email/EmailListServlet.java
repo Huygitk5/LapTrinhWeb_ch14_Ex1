@@ -14,14 +14,14 @@ import murach.util.MailUtilEmail;
  // Import class gửi mail
 
 
-@WebServlet("/emailList")
+@WebServlet(name = "EmailListServlet", urlPatterns = {"/emailList"})
 public class EmailListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/index.jsp";
+        String url = "/email.jsp";
         String message = "";
         
         // Lấy action hiện tại
@@ -32,22 +32,21 @@ public class EmailListServlet extends HttpServlet {
 
         // Xử lý các action
         if (action.equals("join")) {
-            url = "/index.jsp"; 
+            url = "/email.jsp"; 
         } 
         else if (action.equals("add")) {
             // 1. Lấy dữ liệu từ form
-            String email = request.getParameter("email");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
-            
+            String email = request.getParameter("email");
 
-            User user = new User(email, firstName, lastName);
+            User user = new User(firstName, lastName, email);
 
             // 2. KIỂM TRA TRÙNG LẶP (Logic từ file cũ của bạn)
             if (UserDB.emailExists(email)) {
                 message = "This email address already exists.<br>" +
                           "Please enter another email address.";
-                url = "/index.jsp"; // Quay lại trang nhập để báo lỗi
+                url = "/email.jsp"; // Quay lại trang nhập để báo lỗi
             } 
             else {
                 // 3. NẾU KHÔNG TRÙNG -> LƯU VÀO DB
@@ -55,7 +54,7 @@ public class EmailListServlet extends HttpServlet {
                 
                 // 4. GỬI EMAIL (Logic gửi mail)
                 String to = email;
-                String from = "genshinpart23@gmail.com"; 
+                String from = "daonguyennhatanh0910@gmail.com"; 
                 String subject = "Welcome to our email list";
                 String body = "Dear " + firstName + ",\n\n"
                         + "Thanks for joining our email list. "
