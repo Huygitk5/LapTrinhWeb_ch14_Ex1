@@ -21,7 +21,7 @@ public class EmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/email.jsp";
+        String url = "/index.jsp";
         String message = "";
         
         // Lấy action hiện tại
@@ -32,7 +32,7 @@ public class EmailListServlet extends HttpServlet {
 
         // Xử lý các action
         if (action.equals("join")) {
-            url = "/email.jsp"; 
+            url = "/index.jsp"; 
         } 
         else if (action.equals("add")) {
             // 1. Lấy dữ liệu từ form
@@ -46,7 +46,7 @@ public class EmailListServlet extends HttpServlet {
             if (UserDB.emailExists(email)) {
                 message = "This email address already exists.<br>" +
                           "Please enter another email address.";
-                url = "/email.jsp"; // Quay lại trang nhập để báo lỗi
+                url = "/index.jsp"; // Quay lại trang nhập để báo lỗi
             } 
             else {
                 // 3. NẾU KHÔNG TRÙNG -> LƯU VÀO DB
